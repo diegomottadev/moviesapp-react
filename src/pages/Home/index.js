@@ -4,7 +4,7 @@ import style from './styles';
 import {MovieIcon} from '../../icons';
 
 
-export default  ()=>{
+export default  ({history})=>{
     const [searchText, setSearchText] = useState("");
     const classes = style();
     const handleSearchTextChange = event=>{
@@ -12,11 +12,11 @@ export default  ()=>{
     };
 
     const handleClickCleanText = () =>{
-
+        setSearchText('');
     };
 
     const handleSearchTextClick = () =>{
-
+        history.push(`/results?movieName=${searchText}`);
     };
 
     return (
@@ -32,8 +32,8 @@ export default  ()=>{
                 </Grid>
                 <TextField className={classes.textFieldSearch} value={searchText} placeholder="Buscar..." onChange={handleSearchTextChange}></TextField>
                 <Grid className={classes.buttonContainer}>
-                    <Button variant="contained" onClick={handleClickCleanText}>Buscar</Button>
-                    <Button className={classes.searchButton} variant="contained" color="primary" onClick={handleSearchTextClick}>Limpiar</Button>
+                    <Button variant="contained" onClick={handleClickCleanText}>Limpiar</Button>
+                    <Button className={classes.searchButton} variant="contained" color="primary" onClick={handleSearchTextClick}>Buscar</Button>
                 </Grid>
             </Card>
         </Container >
