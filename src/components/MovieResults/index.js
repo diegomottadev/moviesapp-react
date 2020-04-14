@@ -1,9 +1,9 @@
 import React from 'react';
 import {Card, Grid, Typography, Button} from '@material-ui/core';
 import style from './style';
-import {withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
-const MovieResult = ({Title, Year,Type,imdbID, Poster,history }) =>{
+const MovieResult = ({Title, Year,Type,imdbID, Poster, history }) =>{
     const classes = style();
 
     const handleSeeMovieClick = () =>{
@@ -28,4 +28,4 @@ const MovieResult = ({Title, Year,Type,imdbID, Poster,history }) =>{
     );
 }
 
-export default MovieResult;
+export default withRouter(MovieResult);

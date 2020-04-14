@@ -1,4 +1,4 @@
-import React,{ useEffect } from 'react';
+import React,{ useEffect ,useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import { Container, CircularProgress } from '@material-ui/core';
 import queryString from 'query-string';
@@ -9,16 +9,20 @@ import {movieResults, isSearchLoading} from '../../redux/selectors';
 import MovieResult from '../../components/MovieResults';
 
 export default ({location})=>{
+    //dispara accion de la store
     const dispatch = useDispatch();
-    console.log(dispatch);
+    //extrae informacion del store
     const movies = useSelector(state=>movieResults(state));
     const isLoading =  useSelector(state=> isSearchLoading(state));
-    //componentDidMount parecido
+    const [isLocked, setIsLocked] = useState(false);
+    //(componentDidMount,componentDidUpdate y componentWillUnMout) permite llevar acciones
+    // secundarias  en componentes funcionales 
+    // Este hook, le indicamos a React que el componente tiene que hacer algo despues de renderizarse
     useEffect(() => {
         const {movieName} = queryString.parse(location.search);
-        console.log(movieName);
 
-        if (movieName && !movies){
+        if (movieName && !isLocked){
+            setIsLocked(true);
             dispatch(searchMovie({movieName}))
         }
 
